@@ -1,0 +1,188 @@
+﻿@using LogisticEngine.Extensions
+@using LogisticEngine.Model.UI
+@model InvoiceAddEditModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BaseLayoutWithStyle1.cshtml";
+}
+@*<style type="text/css" media="print">
+        @@page
+        {
+            size:  auto;
+            margin: 0mm;
+        }
+
+        html
+        {
+            background-color: #FFFFFF;
+            margin: 0px;
+        }
+
+        body
+        {
+            border: solid 1px blue ;
+            margin: 10mm 15mm 10mm 15mm;
+        }
+    </style>*@
+<style>
+    .google_header {
+        padding-bottom: 75px !important;
+        font-size: 36px !important;
+        font-family: serif;
+        border-bottom: 0px !important;
+    }
+
+    table {
+        text-align: center;
+    }
+
+        table > thead > tr > th {
+            text-align: center;
+        }
+
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 1px solid #f4f4f4;
+        padding: 8px !important;
+    }
+</style>
+<section class="invoice">
+    <!-- title row -->
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="page-header google_header">
+                @*<i class="fa fa-globe"></i> Somyadipta*@
+                <span class="pull-right">VICTOR LOGISTICS PVT. LTD.</span>
+            </h2>
+        </div><!-- /.col -->
+    </div>
+    <br />
+    <br />
+    <br />
+    <!-- info row -->
+    <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+            To
+            <address>
+                <strong> @Model.InvoiceTo.CompanyName </strong><br>
+                @Model.InvoiceTo.Address1<br>
+                @if (!string.IsNullOrWhiteSpace(Model.InvoiceTo.Address2))
+                {
+            <span>@Model.InvoiceTo.Address2</span><br>
+                }
+
+            @if (!string.IsNullOrWhiteSpace(Model.InvoiceTo.Address3))
+            {
+                <span>@Model.InvoiceTo.Address3</span>
+            }
+
+
+
+            </address>
+        </div><!-- /.col -->
+        @*<div class="col-sm-4 invoice-col">
+                To
+                <address>
+                    <strong>John Doe</strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    Phone: (555) 539-1037<br>
+                    Email: john.doe@example.com
+                </address>
+            </div>*@<!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+            <b>Invoice No. @Model.InvoiceNumber</b><br>
+            Invoice Date:- @Model.InvoiceDate.ToShortDateString()<br>
+            PO. No. @Model.PoNO<br>
+            GST:- @Model.GST<br />
+            SAC NO:- @Model.SACNo
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    <br />
+    <span>Employee Transportaion charges for the month of &nbsp; @Model.FromTime.ToCustomFormat1()  &nbsp; To &nbsp; @Model.ToTime.ToCustomFormat1()</span>
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Segment</th>
+                        <th>Fleet #</th>
+                        <th>Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var invoiceItem in Model.InvoiceItems)
+                    {
+                        <tr>
+                            <td>@invoiceItem.SerialNo</td>
+                            <td>@invoiceItem.ItemName</td>
+                            <td>@invoiceItem.ItemQuantity</td>
+                            <td>@invoiceItem.TotalPrice.ToRupeeFormat()</td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td rowspan="4" colspan="2"></td>
+                        <td><b>TOTAL AMOUNT</b></td>
+                        <td><b>@Model.TotalWithoutTax.ToRupeeFormat()</b></td>
+                    </tr>
+                    <tr>
+                        <td>CGST @@ @Model.CGSTRate %</td>
+                        <td>@Model.CGSTAmount.ToRupeeFormat()</td>
+                    </tr>
+                    <tr>
+                        <td>SGST @@ @Model.SGSTRate %</td>
+                        <td>@Model.SGSTAmount.ToRupeeFormat()</td>
+                    </tr>
+                    <tr>
+                        <td><b>Total Invoice Amount</b></td>
+                        <td><b>@Model.TotalWithTax.ToRupeeFormat()</b></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    <div>
+        <span>Inwords:- ( @Model.TotalWithTax.ToWordFormat() Only )</span>
+        <br />
+        <br />
+        <br />
+        <span style="font-size:15px">Thank you</span>
+        <br />
+        <br />
+        <span style="font-size:17px">For VICTOR LOGISTICS PVT LTD</span>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <span>Authorised Signatory</span><br />
+        <span style="font-size:17px">Vendor Name: VICTOR LOGISTICS PVT LTD</span><br />
+        <br />
+        <br />
+        <span style="font-size:16px">Vendor Plan &nbsp;&nbsp;   :-&nbsp; AADCV2615E</span><br />
+        <span style="font-size:16px">Vendor GST &nbsp;&nbsp;    :-&nbsp; 36AADCV2615E1ZM</span><br />
+    </div>
+
+    <!-- this row will not appear when printing -->
+    <div class="row no-print">
+            <div class="col-xs-12">
+                <a href="#" id="btnPrint" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                @*<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>*@
+            </div>
+        </div>
+</section><!-- /.content -->
+<div class="clearfix"></div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(function () {
+        $('#btnPrint').click(function () {
+            window.print();
+        });
+    });
+</script>
+

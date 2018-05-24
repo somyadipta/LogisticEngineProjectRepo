@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_BaseLayoutWithStyle1.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/knockout-3.4.2.js"></script>
+<script src="~/Scripts/knockout.viewmodel.2.0.3.min.js"></script>
+<script>
+    function searchInvoices() {
+        $.ajax({
+            type: 'GET',
+            url: "/Invoice/GetInvoices",
+            dataType: 'json',
+            contentType: 'application/json',
+            //data: jsonData,
+            success: function (resultData) {
+                console.log(resultData);
+                setupModel(resultData);
+            }
+        });
+    }
+    function setupModel(data) {
+        var model = {
+            invoices: data
+        };
+        $.each(model.invoices, function (i, itm) {
+            itm.InvoiceDate = (ConvertToDate(itm.InvoiceDate)).toLocaleDateString();
+            itm.FromTime = (ConvertToDate(itm.FromTime)).toLocaleDateString();
+            itm.ToTime = (ConvertToDate(itm.ToTime)).toLocaleDateString();
+        });
+        var viewmodel = ko.viewmodel.fromModel(model);
+        //viewmodel.InvoiceDate = ConvertToDate(viewmodel.InvoiceDate());
+        //viewmodel.FromTime = ConvertToDate(viewmodel.FromTime());
+        //viewmodel.ToTime = ConvertToDate(viewmodel.ToTime());
+        ko.applyBindings(viewmodel);
+    }
+    $(function () {
+        searchInvoices();
+    });
+    function ConvertToDate(jsonDate) {
+        var date = new Date(parseInt(jsonDate.substr(6)));
+        return date;
+    }
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Invoices</h3>
+                <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: invoices">
+                        <tr>
+                            <td data-bind="text:InvoiceTo.CompanyName"></td>
+                            <td data-bind="text:FromTime"></td>
+                            <td data-bind="text:ToTime"></td>
+                            <td><span class="label label-success" data-bind="text:TotalWithTax">0</span></td>
+                            <td><a data-bind="attr: { href: '/Invoice/Index?invoice='+ InvoiceId() }">Invoice</a></td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,13 @@
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\LogisticEngine.DBAccess.dll.config
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\LogisticEngine.DBAccess.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\LogisticEngine.DBAccess.pdb
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\EntityFramework.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\LogisticEngine.Model.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\LogisticEngine.Model.pdb
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\EntityFramework.xml
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\obj\Debug\LogisticEngine.DBAccess.csprojResolveAssemblyReference.cache
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\obj\Debug\LogisticEngine.DBAccess.csproj.CoreCompileInputs.cache
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\obj\Debug\LogisticEngine.DBAccess.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.DBAccess\obj\Debug\LogisticEngine.DBAccess.pdb

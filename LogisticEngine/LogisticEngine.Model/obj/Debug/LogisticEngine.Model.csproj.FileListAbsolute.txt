@@ -1,0 +1,6 @@
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Model\bin\Debug\LogisticEngine.Model.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Model\bin\Debug\LogisticEngine.Model.pdb
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Model\obj\Debug\LogisticEngine.Model.csprojResolveAssemblyReference.cache
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Model\obj\Debug\LogisticEngine.Model.csproj.CoreCompileInputs.cache
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Model\obj\Debug\LogisticEngine.Model.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Model\obj\Debug\LogisticEngine.Model.pdb

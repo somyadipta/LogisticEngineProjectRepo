@@ -1,0 +1,295 @@
+﻿@using LogisticEngine.Model.UI
+@model InvoiceAddEditModel
+@{
+    ViewBag.Title = "AddEdit";
+    Layout = "~/Views/Shared/_BaseLayoutWithStyle1.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/knockout-3.4.2.js"></script>
+<script src="~/Scripts/knockout.viewmodel.2.0.3.min.js"></script>
+<script>
+    var model = @Html.Raw(Json.Encode(Model));
+    var viewmodel = ko.viewmodel.fromModel(model);
+    $(function () {
+        //var options = {
+        //    extend: {
+        //        "{root}": function () {
+        //        }
+        //    }
+        //};
+        viewmodel.InvoiceDate = ConvertToDate(viewmodel.InvoiceDate());
+        viewmodel.FromTime = ConvertToDate(viewmodel.FromTime());
+        viewmodel.ToTime = ConvertToDate(viewmodel.ToTime());
+        viewmodel.CGST = "CGST@@" + viewmodel.CGSTRate() + "%";
+        viewmodel.SGST = "SGST@@" + viewmodel.SGSTRate() + "%";
+
+        viewmodel.TotalWithoutTax = ko.computed(function () {
+            var amount = 0;
+            $.each(viewmodel.InvoiceItems(), function (i, itm) {
+                amount = amount + parseFloat(itm.TotalPrice);
+            });
+            return (amount).toFixed(2);
+        });
+        viewmodel.CGSTAmount = ko.computed(function () {
+            if (viewmodel.TotalWithoutTax() == 0)
+                return 0;
+            return ((viewmodel.TotalWithoutTax() * viewmodel.CGSTRate()) / 100).toFixed(2);
+        });
+
+        viewmodel.SGSTAmount = ko.computed(function () {
+            if (viewmodel.TotalWithoutTax() == 0)
+                return 0;
+            return ((viewmodel.TotalWithoutTax() * viewmodel.SGSTRate()) / 100).toFixed(2);
+        });
+        viewmodel.TotalWithTax = ko.computed(function () {
+            var num =parseFloat(viewmodel.TotalWithoutTax() + (viewmodel.CGSTAmount() + viewmodel.SGSTAmount()));
+            return num.toFixed(2);
+        });
+        viewmodel.AddInvoiceItem = function () {
+            console.log(viewmodel);
+            if (validateInvoiceItem()) {
+                viewmodel.InvoiceItems.push({ "InvoiceItemId": 0, "SerialNo": (viewmodel.InvoiceItems().length + 1), "ItemName": "" + $('#txtSegment').val() + "", "ItemQuantity": "" + $('#txtFleet').val() + "", "TotalPrice": "" + $('#txtSubTotal').val() + "" });
+                clearEle('#txtSegment');
+                clearEle('#txtFleet');
+                clearEle('#txtSubTotal');
+            }
+        };
+        viewmodel.Submit = function () {
+            if (validateInvoice()) {
+                var jsonData =JSON.parse(JSON.stringify( ko.toJSON(viewmodel)));
+                console.log(jsonData);
+                //$.post("/Invoice/AddEdit", jsonData, Headers: {co}, function (returnedData) {
+                //    // This callback is executed if the post was successful  
+                //    alert("Save Complete")
+                //});
+                $.ajax({
+                    type: 'post',
+                    url: "/Invoice/AddEdit",
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: jsonData,
+                    success: function (resultData) { window.location = "/invoice/Search"; }
+                });
+               
+            }
+        };
+        ko.applyBindings(viewmodel);
+
+    });
+    function validateInvoiceItem() {
+        var itemName = $('#txtSegment').val();
+        var itemQuantity = $('#txtFleet').val();
+        var itemTotalPrice = $('#txtSubTotal').val();
+        var isValid = true;
+        if (itemName == undefined || itemName == '' || itemName == null) {
+            isValid = false;
+            setOrRemoveError('#txtSegment',true);
+        } else {
+            setOrRemoveError('#txtSegment', false);
+        }
+        if (itemQuantity == undefined || itemQuantity == '' || itemQuantity == null) {
+            isValid = false;
+            setOrRemoveError('#txtFleet', true);
+        } else {
+            setOrRemoveError('#txtFleet', false);
+        }
+        if (itemTotalPrice == undefined || itemTotalPrice == '' || itemTotalPrice == null) {
+            isValid = false;
+            setOrRemoveError('#txtSubTotal', true);
+        } else {
+            setOrRemoveError('#txtSubTotal', false);
+        }
+
+        return isValid;
+
+    }
+    function validateInvoice() {
+        return true;
+    }
+    function setOrRemoveError(ele,iserror) {
+        var thisParent = $(ele).closest('.form-group');
+        if (iserror) { $(thisParent).addClass('has-error'); } else { $(thisParent).removeClass('has-error'); }
+    }
+    function clearEle(ele) {
+        $(ele).val('');
+    }
+    function ConvertToDate(jsonDate) {
+        var date = new Date(parseInt(jsonDate.substr(6)));
+        return date;
+    }
+</script>
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-9">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="padding-top:19px;padding-left:20px;">Create new invoice</h3>
+                <div style="width:30%;float:right;padding-top:10px;">
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option>Google</option>
+                            <option>Amazon</option>
+                            <option>Infosys</option>
+                            <option>Synchrony</option>
+                            <option>Microsoft</option>
+                        </select>
+                    </div>
+                </div>
+            </div><!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+                <div class="box-body">
+                    <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">To</label>
+                                <label class="Control-label"> &nbsp; </label>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Company name</span>
+                                <input type="text" class="form-control" id="txtCompanyName" placeholder="Company name" data-bind="value:InvoiceTo.CompanyName">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">Address line 1</span>
+                                <input type="text" class="form-control" id="txtAddressLine1" placeholder="Address line 1" data-bind="value:InvoiceTo.Address1">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">Address line 2</span>
+                                <input type="text" class="form-control" id="txtAddressLine2" placeholder="Address line 2" data-bind="value:InvoiceTo.Address2">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">Address line 3</span>
+                                <input type="text" class="form-control" id="txtAddressLine3" placeholder="Address line 3" data-bind="value:InvoiceTo.Address3">
+                            </div>
+
+                        </div><!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">&nbsp;</label>
+                                <label> &nbsp; </label>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Invoice date</span>
+                                <input type="date" class="form-control" id="txtInvoiceDate" data-bind="value:InvoiceDate">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">PO No</span>
+                                <input type="text" class="form-control" id="txtPoNo" data-bind="value:PoNO">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">GST</span>
+                                <input type="text" class="form-control" id="txtGST" data-bind="value:GST">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">SAC NO</span>
+                                <input type="text" class="form-control" id="txtGST" data-bind="value:SACNo">
+                            </div>
+
+
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <br /><br />
+                    <div class="row">
+                        <div class="col-md-12" style="display:inline-flex;">
+                            Employee Transportaion charges for the month of &nbsp; <input type="date" class="form-control" id="txtInvoiceFromDate" style="width:20%" data-bind="value:FromTime">&nbsp; To &nbsp;<input type="date" class="form-control" id="txtInvoiceToDate" style="width:20%" data-bind="value:ToTime">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="padding:10px;font-size:15px;">
+                        <div class="col-md-1">SL NO</div>
+                        <div class="col-md-3">SEGMENT</div>
+                        <div class="col-md-2">FLEET</div>
+                        <div class="col-md-2">SUB TOTAL</div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div data-bind="foreach: InvoiceItems" style="padding:10px;">
+                        <div class="row" style="border-top:1px solid #f1ebeb;padding:10px;">
+                            <div class="col-md-1" data-bind="text:SerialNo">1</div>
+                            <div class="col-md-3" data-bind="text:ItemName">Waiting Cabs</div>
+                            <div class="col-md-2" data-bind="text:ItemQuantity">12</div>
+                            <div class="col-md-2" data-bind="text:TotalPrice">464,754.42</div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding:10px;">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="txtSegment" placeholder="Segment">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="txtFleet" placeholder="Fleet">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="txtSubTotal" placeholder="Sub total">
+                            </div>
+                        </div>
+                        <div class="col-md-2"><button class="btn btn-block btn-success btn-sm" data-bind="click:AddInvoiceItem">Add the invoice item</button></div>
+                    </div>
+
+
+                    <div class="row" style="border-top:1px solid #f1ebeb;padding:10px;">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-2">Total Amount</div>
+                        <div class="col-md-2" data-bind="text:TotalWithoutTax">0</div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">SGST@@</span>
+                                <input type="text" class="form-control" id="txtSGST" data-bind="value:SGSTRate">
+                            </div>
+                        </div>
+                        <div class="col-md-2" data-bind="text:SGSTAmount">0</div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">CGST@@</span>
+                                <input type="text" class="form-control" id="txtCGST" data-bind="value:CGSTRate">
+                            </div>
+
+                        </div>
+                        <div class="col-md-2" data-bind="text:CGSTAmount">0</div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div class="row" style="padding:10px;">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-2">Total Invoice Amount</div>
+                        <div class="col-md-2" data-bind="text:TotalWithTax">0</div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div><!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary" data-bind="click:Submit">Click to create the invoice</button>
+                </div>
+            </form>
+        </div><!-- /.box -->
+
+
+    </div><!--/.col (left) -->
+
+</div>
+

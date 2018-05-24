@@ -1,0 +1,16 @@
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.Repository.dll.config
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.Repository.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.Repository.pdb
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\EntityFramework.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.DBAccess.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.Model.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.DBAccess.pdb
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.DBAccess.dll.config
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\LogisticEngine.Model.pdb
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\EntityFramework.xml
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\obj\Debug\LogisticEngine.Repository.csprojResolveAssemblyReference.cache
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\obj\Debug\LogisticEngine.Repository.csproj.CoreCompileInputs.cache
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\obj\Debug\LogisticEngine.Repository.dll
+C:\Users\caw2\source\repos\LogisticEngine\LogisticEngine.Repository\obj\Debug\LogisticEngine.Repository.pdb
