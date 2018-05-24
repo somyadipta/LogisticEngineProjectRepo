@@ -407,12 +407,12 @@ namespace LogisticEngine.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult RoleMgmt()
-        {
+        //[HttpPost]
+        //public ActionResult RoleMgmt()
+        //{
             
-            return View();
-        }
+        //    return View();
+        //}
 
         protected override void Dispose(bool disposing)
         {
