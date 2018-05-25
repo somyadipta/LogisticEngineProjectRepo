@@ -9,5 +9,6 @@ namespace LogisticEngine.Repository
 {
    public class CompanyAddressRepository:RepositoryBase
     {
+
     }
 }

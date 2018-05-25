@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace LogisticEngine.Model.DB
 {
-   public class CompanyAddress
+   public class ClientBranch
     {
         [Key]
-        public int CompanyAddressId { get; set; }
-        public string CompanyName { get; set; }
+        public int ClientBranchId { get; set; }
+        public string BranchName { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
@@ -19,5 +19,12 @@ namespace LogisticEngine.Model.DB
         public string City { get; set; }
         public string Country { get; set; }
         public string Zip { get; set; }
+
+        public string PAN { get; set; }
+        public string GST { get; set; }
+        public string ConcernEmails { get; set; }
+
+        public int ClientId { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

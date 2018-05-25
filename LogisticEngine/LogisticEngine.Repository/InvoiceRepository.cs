@@ -44,16 +44,16 @@ namespace LogisticEngine.Repository
                     InvoiceId = newInvoice.InvoiceId
 
                 }).ToList(),
-                InvoiceTo = new CompanyAddress
+                InvoiceTo = new ClientBranch
                 {
-                    CompanyName = newInvoice.InvoiceTo.CompanyName,
+                    BranchName = newInvoice.InvoiceTo.BranchName,
                     Address1 = newInvoice.InvoiceTo.Address1,
                     Address2 = newInvoice.InvoiceTo.Address2,
                     Address3 = newInvoice.InvoiceTo.Address3,
-                    CompanyAddressId = newInvoice.InvoiceTo.CompanyAddressId
+                    ClientBranchId = newInvoice.InvoiceTo.ClientBranchId
                 },
                 InvoiceNumber = "Google" + DateTime.Now.Ticks.ToString(),
-                CompanyAddressId= newInvoice.InvoiceTo.CompanyAddressId,
+                CompanyAddressId= newInvoice.InvoiceTo.ClientBranchId,
                 UserId=newInvoice.UserId
 
             };
@@ -61,12 +61,11 @@ namespace LogisticEngine.Repository
             {
                 if (invoice.CompanyAddressId > 0)
                 {
-                    this.Update<CompanyAddress>(invoice.InvoiceTo);
+                    this.Update<ClientBranch>(invoice.InvoiceTo);
                 }
 
                 if (invoice.InvoiceId > 0)
                 {
-                    this.Update<Invoice>(invoice);
                     invoice.InvoiceItems.ForEach((item) =>
                     {
                         if (item.InvoiceItemId > 0)
@@ -78,6 +77,8 @@ namespace LogisticEngine.Repository
                             this.Add<InvoiceItem>(item);
                         }
                     });
+                    this.Update<Invoice>(invoice);
+
                 }
                 else
                 {
@@ -106,13 +107,13 @@ namespace LogisticEngine.Repository
                 prsentableInvoices.Add(new InvoiceAddEditModel
                 {
                     PoNO = p.PoNO,
-                    InvoiceTo = new AddressAddEditModel
+                    InvoiceTo = new ClientBranchAddEditModel
                     {
                         Address1 = p.InvoiceTo.Address1,
                         Address2 = p.InvoiceTo.Address2,
                         Address3 = p.InvoiceTo.Address3,
-                        CompanyName = p.InvoiceTo.CompanyName,
-                        CompanyAddressId = p.InvoiceTo.CompanyAddressId
+                        BranchName = p.InvoiceTo.BranchName,
+                        ClientBranchId = p.InvoiceTo.ClientBranchId
                     },
                     CGSTRate = p.CGSTRate,
                     CGSTAmount = p.CGSTAmount,
@@ -147,13 +148,13 @@ namespace LogisticEngine.Repository
             return new InvoiceAddEditModel
             {
                 PoNO = p.PoNO,
-                InvoiceTo = new AddressAddEditModel
+                InvoiceTo = new ClientBranchAddEditModel
                 {
                     Address1 = p.InvoiceTo.Address1,
                     Address2 = p.InvoiceTo.Address2,
                     Address3 = p.InvoiceTo.Address3,
-                    CompanyName = p.InvoiceTo.CompanyName,
-                    CompanyAddressId = p.InvoiceTo.CompanyAddressId
+                    BranchName = p.InvoiceTo.BranchName,
+                    ClientBranchId = p.InvoiceTo.ClientBranchId
                 },
                 CGSTRate = p.CGSTRate,
                 CGSTAmount = p.CGSTAmount,

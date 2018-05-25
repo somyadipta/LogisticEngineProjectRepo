@@ -17,7 +17,7 @@ namespace LogisticEngine.Model.UI
         public string GST { get; set; }
         public string SACNo { get; set; }
         public int CompanyAddressId { get; set; }
-        public AddressAddEditModel InvoiceTo { get; set; }
+        public ClientBranchAddEditModel InvoiceTo { get; set; }
         public double CGSTRate { get; set; }
         public double CGSTAmount { get; set; }
         public double SGSTRate { get; set; }
@@ -29,10 +29,10 @@ namespace LogisticEngine.Model.UI
         public string CGST { get; set; }
         public string SGST { get; set; }
     }
-    public class AddressAddEditModel
+    public class ClientBranchAddEditModel
     {
-        public int CompanyAddressId { get; set; }
-        public string CompanyName { get; set; }
+        public int ClientBranchId { get; set; }
+        public string BranchName { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
@@ -40,6 +40,10 @@ namespace LogisticEngine.Model.UI
         public string City { get; set; }
         public string Country { get; set; }
         public string Zip { get; set; }
+
+        public string PAN { get; set; }
+        public string GST { get; set; }
+        public string ConcernEmails { get; set; }
     }
 
     public class InvoiceItemAddEditModel

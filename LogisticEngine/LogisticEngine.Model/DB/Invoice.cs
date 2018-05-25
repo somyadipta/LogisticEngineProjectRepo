@@ -19,9 +19,11 @@ namespace LogisticEngine.Model.DB
         public string PoNO { get; set; }
         public string GST { get; set; }
         public string SACNo { get; set; }
+        public string InvoiceType { get; set; }
+
 
         public int CompanyAddressId { get; set; }
-        public virtual CompanyAddress InvoiceTo { get; set; }
+        public virtual ClientBranch InvoiceTo { get; set; }
 
         public double CGSTRate { get; set; }
         public double CGSTAmount { get; set; }

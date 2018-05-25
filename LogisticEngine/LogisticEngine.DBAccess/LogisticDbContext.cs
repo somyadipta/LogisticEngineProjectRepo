@@ -13,7 +13,7 @@ namespace LogisticEngine.DBAccess
         public DbSet<User> Users { get; set; }
         public DbSet<InvoiceItem> InvoiceItems { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<CompanyAddress> CompanyAddresses { get; set; }
+        public DbSet<ClientBranch> CompanyAddresses { get; set; }
 
     }
 }

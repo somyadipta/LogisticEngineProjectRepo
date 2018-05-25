@@ -28,7 +28,7 @@ namespace LogisticEngine.Controllers
         {
             userRepo.AddDefaultUser();
             InvoiceAddEditModel invoice = new InvoiceAddEditModel();
-            invoice.InvoiceTo = new AddressAddEditModel();
+            invoice.InvoiceTo = new ClientBranchAddEditModel();
             //invoice.InvoiceTo.CompanyName = "Google";
             invoice.InvoiceItems = new List<InvoiceItemAddEditModel>();
             invoice.CGSTRate = 2.5;
