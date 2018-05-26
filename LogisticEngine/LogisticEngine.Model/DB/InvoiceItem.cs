@@ -19,5 +19,6 @@ namespace LogisticEngine.Model.DB
 
         public int InvoiceId { get; set; }
         public virtual Invoice Invoice { get; set; }
+        public string InAmount { get; set; }
     }
 }

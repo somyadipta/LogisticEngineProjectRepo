@@ -35,7 +35,7 @@ namespace LogisticEngine.Model.DB
         public double TotalWithTax { get; set; }
 
         public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public virtual LogisticUsers User { get; set; }
 
         public virtual List<InvoiceItem> InvoiceItems { get; set; }
     }

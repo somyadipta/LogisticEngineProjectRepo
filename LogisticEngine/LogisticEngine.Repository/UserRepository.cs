@@ -12,20 +12,20 @@ namespace LogisticEngine.Repository
     {
         public void AddDefaultUser()
         {
-            if (this.Get<User>(p => p.Email == "s@s.com").Count() == 0)
-            {
-                this.Add<User>(new User
-                {
-                    Email="s@s.com",
-                    FirstName="som",
-                     LastName="Nayak",
-                     Password="1234"
-                });
-            }
+            //if (this.Get<LogisticUsers>(p => p.Email == "s@s.com").Count() == 0)
+            //{
+            //    this.Add<LogisticUsers>(new LogisticUsers
+            //    {
+            //        Email="s@s.com",
+            //        FirstName="som",
+            //         LastName="Nayak",
+            //         Password="1234"
+            //    });
+            //}
         }
-        public User GetDefaultUser()
+        public LogisticUsers GetDefaultUser(string email)
         {
-            return this.Get<User>(p => p.Email == "s@s.com").FirstOrDefault();
+            return this.Get<LogisticUsers>(p => p.Email == email).FirstOrDefault();
         }
     }
 }
