@@ -21,10 +21,10 @@ namespace LogisticEngine.Model.DB
 
         public virtual List<ClientBranch> Branches { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+        [ForeignKey("LogisticUser")]
+        public int LogisticUserId { get; set; }
 
-        public virtual LogisticUsers User { get; set; }
+        public virtual LogisticUser LogisticUser { get; set; }
 
     }
 }

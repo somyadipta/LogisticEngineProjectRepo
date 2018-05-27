@@ -54,7 +54,7 @@ namespace LogisticEngine.Repository
                 },
                 InvoiceNumber = "Google" + DateTime.Now.Ticks.ToString(),
                 CompanyAddressId= newInvoice.InvoiceTo.ClientBranchId,
-                UserId=newInvoice.UserId
+                LogisticUserId=newInvoice.UserId
 
             };
             try
@@ -97,9 +97,9 @@ namespace LogisticEngine.Repository
             List<Invoice> invoices = new List<Invoice>();
             List<InvoiceAddEditModel> prsentableInvoices = new List<InvoiceAddEditModel>();
             if (companyAddressId == null)
-                invoices= this.Get<Invoice>(p => p.UserId == userId && p.FromTime.Month == fromDate.Month).ToList();
+                invoices= this.Get<Invoice>(p => p.LogisticUserId == userId && p.FromTime.Month == fromDate.Month).ToList();
             else
-                invoices= this.Get<Invoice>(p => p.UserId == userId && p.FromTime.Month == fromDate.Month && p.CompanyAddressId==(int)companyAddressId).ToList();
+                invoices= this.Get<Invoice>(p => p.LogisticUserId == userId && p.FromTime.Month == fromDate.Month && p.CompanyAddressId==(int)companyAddressId).ToList();
 
 
             invoices.ForEach((p) =>
@@ -128,7 +128,7 @@ namespace LogisticEngine.Repository
                     InvoiceNumber = p.InvoiceNumber,
                     TotalWithoutTax = p.TotalWithoutTax,
                     TotalWithTax = p.TotalWithTax,
-                    UserId = p.UserId,
+                    UserId = p.LogisticUserId,
                     InvoiceItems = p.InvoiceItems.Select(t => new InvoiceItemAddEditModel
                     {
                         InvoiceItemId=t.InvoiceItemId,
@@ -169,7 +169,7 @@ namespace LogisticEngine.Repository
                 InvoiceNumber = p.InvoiceNumber,
                 TotalWithoutTax = p.TotalWithoutTax,
                 TotalWithTax = p.TotalWithTax,
-                UserId = p.UserId,
+                UserId = p.LogisticUserId,
                 InvoiceItems = p.InvoiceItems.Select(t => new InvoiceItemAddEditModel
                 {
                     InvoiceItemId = t.InvoiceItemId,

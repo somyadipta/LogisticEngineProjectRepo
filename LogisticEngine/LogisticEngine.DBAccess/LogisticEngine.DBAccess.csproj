@@ -48,6 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LogisticDbContext.cs" />
+    <Compile Include="Migrations\201805271027469_InitialCreate.cs" />
+    <Compile Include="Migrations\201805271027469_InitialCreate.Designer.cs">
+      <DependentUpon>201805271027469_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SQLScripts\LogisticCustomDBTableScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805271027469_InitialCreate.resx">
+      <DependentUpon>201805271027469_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

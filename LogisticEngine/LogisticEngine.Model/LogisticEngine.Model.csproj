@@ -45,7 +45,7 @@
     <Compile Include="DB\ClientBranch.cs" />
     <Compile Include="DB\Invoice.cs" />
     <Compile Include="DB\InvoiceItem.cs" />
-    <Compile Include="DB\LogisticUsers.cs" />
+    <Compile Include="DB\LogisticUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ClientAddEditModel.cs" />
     <Compile Include="UI\InvoiceAddEditModel.cs" />

@@ -10,6 +10,6 @@ namespace LogisticEngine.Repository.Interface
     public interface IUserRepository
     {
         void AddDefaultUser();
-        LogisticUsers GetDefaultUser(string email);
+        LogisticUser GetDefaultUser(string email);
     }
 }

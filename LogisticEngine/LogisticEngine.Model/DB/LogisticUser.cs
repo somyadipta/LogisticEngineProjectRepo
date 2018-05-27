@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace LogisticEngine.Model.DB
 {
-   public class LogisticUsers
+   public class LogisticUser
     {
         [Key]
-        public int UserId { get; set; }
+        public int LogisticUserId { get; set; }
 
-        public string AspUserId { get; set; }
+        public string SystemUserId { get; set; }
 
         public string CompanyName { get; set; }
 
         public string Email { get; set; }
 
-        public virtual List<Client> Client { get; set; }
+        public virtual List<Client> Clients { get; set; }
     }
 }

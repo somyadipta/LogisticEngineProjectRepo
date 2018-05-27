@@ -23,9 +23,9 @@ namespace LogisticEngine.Repository
             //    });
             //}
         }
-        public LogisticUsers GetDefaultUser(string email)
+        public LogisticUser GetDefaultUser(string email)
         {
-            return this.Get<LogisticUsers>(p => p.Email == email).FirstOrDefault();
+            return this.Get<LogisticUser>(p => p.Email == email).FirstOrDefault();
         }
     }
 }

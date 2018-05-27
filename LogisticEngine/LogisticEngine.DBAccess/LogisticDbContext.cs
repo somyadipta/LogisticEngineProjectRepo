@@ -10,7 +10,10 @@ namespace LogisticEngine.DBAccess
 {
    public class LogisticDbContext: DbContext
     {
-        public DbSet<LogisticUsers> Users { get; set; }
+        public LogisticDbContext() : base("LogisticEngineDB")
+        {
+        }
+        public DbSet<LogisticUser> LogisticUsers { get; set; }
         public DbSet<InvoiceItem> InvoiceItems { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<ClientBranch> CompanyAddresses { get; set; }

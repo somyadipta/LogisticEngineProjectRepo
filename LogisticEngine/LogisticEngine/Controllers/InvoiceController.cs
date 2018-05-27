@@ -43,7 +43,7 @@ namespace LogisticEngine.Controllers
         {
             if (TryValidateModel(invoice))
             {
-                invoice.UserId = userRepo.GetDefaultUser("").UserId;
+                invoice.UserId = userRepo.GetDefaultUser("").LogisticUserId;
                 _repo.AddEditInvoice(invoice);
                 
             }
@@ -56,7 +56,7 @@ namespace LogisticEngine.Controllers
         }
         public ActionResult GetInvoices()
         {
-            var invoices=_repo.GetAllInvoices(userRepo.GetDefaultUser("").UserId, DateTime.Now,null);
+            var invoices=_repo.GetAllInvoices(userRepo.GetDefaultUser("").LogisticUserId, DateTime.Now,null);
 
             return Json(invoices, JsonRequestBehavior.AllowGet);
         }
